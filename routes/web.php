@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/test', function () {
     $serverName = "PC2020-103\SQLEXPRESS"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"Northwind", "UID"=>"danmer", "PWD"=>"123456");
 $conn = sqlsrv_connect( $serverName, $connectionInfo);
