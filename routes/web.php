@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\TransferenciaController;
+use App\Imports\TransferenciasImport;
+use App\Models\Transferencia;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/test', function () {
     $serverName = "PC2020-103\SQLEXPRESS"; //serverName\instanceName
 $connectionInfo = array( "Database"=>"Northwind", "UID"=>"danmer", "PWD"=>"123456");
@@ -36,7 +42,25 @@ dd(\DB::connection()->getPdo());
     return view('welcome');
 });
 
+*/
 
-Route::get('/', function () {
-    return view('welcome');
+//Route::get('/', function () {
+//dd(\DB::connection()->getPdo());
+//return view('welcome');
+//});
+
+Route::get('/createusertest', function () {
+    $user = new User([
+        'name' => 'Usernameee',
+        'password' => \bcrypt('password'),
+        'email' => 'danmerccoscco@gmail.com'
+    ]);
+    return $user;
 });
+
+Route::resource('transferencias', TransferenciaController::class);
+Auth::routes();
+
+Route::post('upload/csv', [TransferenciaController::class, 'uploadCsv']);
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
